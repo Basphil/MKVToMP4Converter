@@ -20,7 +20,7 @@ class EventHandler(pyinotify.ProcessEvent):
         if event.pathname[-3:]=='mkv':
             print 'Starting conversion of %s' % event.pathname
             converter.convert(event.pathname)
-            print 'Done.' 
+            print 'Done.\n' 
     
     
 handler = EventHandler()
