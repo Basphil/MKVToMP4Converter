@@ -11,7 +11,7 @@ except IndexError:
 
 
 wm = pyinotify.WatchManager()
-flags = pyinotify.IN_CLOSE_WRITE
+flags = pyinotify.IN_CLOSE_WRITE | pyinotify.IN_MOVED_TO
 
 class EventHandler(pyinotify.ProcessEvent):
     
@@ -22,7 +22,15 @@ class EventHandler(pyinotify.ProcessEvent):
             converter.convert(event.pathname)
             print 'Done.\n' 
     
-    
+
+    def process_IN_MOVED_TO(self, event):
+        print "Moved: "+event.pathname
+        if event.pathname[-3:]=='mkv':
+            print 'Starting conversion of %s' % event.pathname
+            converter.convert(event.pathname)
+            print 'Done.\n' 
+
+        
 handler = EventHandler()
 notifier = pyinotify.Notifier(wm, handler)
 
