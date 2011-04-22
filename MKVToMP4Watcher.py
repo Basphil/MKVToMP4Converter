@@ -2,7 +2,14 @@ import pyinotify
 import MKVToMP4Converter as converter
 import sys
 
-directory = sys.argv[1]
+try:
+    directory = sys.argv[1]
+
+except IndexError:
+    print 'Usage: python MKVToMP4Watcher.py [Path of directory to watch]'
+    sys.exit(2)
+
+
 wm = pyinotify.WatchManager()
 flags = pyinotify.IN_CLOSE_WRITE
 

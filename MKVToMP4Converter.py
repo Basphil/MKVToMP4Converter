@@ -83,7 +83,7 @@ def get_fps (info, t_video):
 def ext_tracks(name, t_audio, t_video, type_audio):
     '''Starts the command to extract the audio and the video track into separate files'''
 
-    print 'Extracting tracks'
+    print '\nExtracting tracks'
 
     command = 'mkvextract tracks %s %s:movie.264 %s:sound.%s' % (name , t_video, t_audio, type_audio)
     args = shlex.split(command)
@@ -91,8 +91,9 @@ def ext_tracks(name, t_audio, t_video, type_audio):
 
     #TODO: Loading sign or so.
     p = subprocess.Popen(args, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-    p.wait()
-
+    p = subprocess.Popen(args, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    for line in iter(p.stdout.readline, ""):
+        print line,
     
 
 def convert_audio(type_audio):
@@ -130,4 +131,8 @@ def box(name, fps):
 
 
 if __name__ == '__main__':
-    convert(sys.argv[1])
+    try:
+        convert(sys.argv[1])
+
+    except IndexError:
+        print 'Usage: python MKVToMP4Converter.py [.mkv file to convert]
