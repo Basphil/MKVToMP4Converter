@@ -4,7 +4,7 @@
 ## Source code and additional information at 
 ## https://github.com/Basphil/MKVToMP4Converter
 
-## Copyright (C) 2011  Basil Philipp
+## Copyright (C) 2011  Basil Philipp <basil.philipp@gmail.com>
 
 ## This program is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
