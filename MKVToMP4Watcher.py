@@ -19,6 +19,15 @@
 ## You should have received a copy of the GNU General Public License
 ## along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+"""
+MKVToMP4Watcher
+
+@author: Basil Philipp
+@license: GPLv3
+@contact: basil.philipp@gmail.com
+"""
+
+
 
 import pyinotify 
 import MKVToMP4Converter as converter
