@@ -39,6 +39,7 @@ Or to directly convert an .mkv file:
 
     $ python MKVToMP4Converter.py [.mkv file to convert]
 
-If something does not work for, have a look at the issues section of the project page. If the issue has
+
+If something does not work, have a look at the issues section of the project page. If the issue has
 already been reported weigh in. If the issues is new please report it. If you haven't got a github account,
 you can also drop me an e-mail.  
