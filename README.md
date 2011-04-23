@@ -3,7 +3,7 @@
 * Project URL      : [https://github.com/Basphil/MKVToMP4Converter](https://github.com/Basphil/MKVToMP4Converter)
 
 This program allows you to convert an .mkv file into an .mp4 file. 
-The program consists of two parts: MKVToMP4Watcher, lets you watch a directory for new .mkv files and then
+The program consists of two parts: MKVToMP4Watcher lets you watch a directory for new .mkv files and then
 authomatically calls MKVToMP4Converter on those files. MKVToMP4Converter turns an .mkv file in a new .mp4 file.
 
 All credit for the process of monitoring directories and making an .mp4 out of the .mkv file goes to the 
@@ -33,8 +33,8 @@ Visit this page to learn how to [install the dependencies](https://github.com/Ba
 
 To watch a directory, download the code, install the dependencies and run this command from a shell:
 
-    $ python MKVToMP4Watcher.py \[Path of directory to watch\]
+    $ python MKVToMP4Watcher.py [Path of directory to watch]
 
 Or to directly convert an .mkv file:
 
-    $ python MKVToMP4Converter.py \[.mkv file to convert\]
+    $ python MKVToMP4Converter.py [.mkv file to convert]
