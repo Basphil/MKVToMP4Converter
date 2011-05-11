@@ -35,20 +35,19 @@ import sys
 from optparse import OptionParser
 
 
-usage = 'python MKVToMP4Watcher.py [options] [Path of directory to watch] \nIf no directory to watch is provided, the current directory will be watched.'
+usage = 'usage: python %prog [options] [Path of directory to watch] \n If no directory to watch is provided, the current directory will be watched.'
 parser = OptionParser(usage=usage)
 
 parser.add_option('-e', '--email',
-                    action='store_true', dest='email', default=False, help='send an e-mail when an event occurs')
+                    action='store_true', dest='email', default=False, help='send an e-mail when an event occurs. %default by default')
 
 (options, args) = parser.parse_args()
 
+if len(args) == 1:
+    directory = args[0]
 
-try:
-    directory = sys.argv[1]
-
-except IndexError:
-    print 'Usage: python MKVToMP4Watcher.py [Path of directory to watch]'
+elif len(args)>1:
+    print 'incorrect number of arguments'
     sys.exit(2)
 
 
