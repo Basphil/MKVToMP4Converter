@@ -32,6 +32,17 @@ MKVToMP4Watcher
 import pyinotify 
 import MKVToMP4Converter as converter
 import sys
+from optparse import OptionParser
+
+
+usage = 'python MKVToMP4Watcher.py [options] [Path of directory to watch] \nIf no directory to watch is provided, the current directory will be watched.'
+parser = OptionParser(usage=usage)
+
+parser.add_option('-e', '--email',
+                    action='store_true', dest='email', default=False, help='send an e-mail when an event occurs')
+
+(options, args) = parser.parse_args()
+
 
 try:
     directory = sys.argv[1]
