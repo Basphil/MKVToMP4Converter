@@ -33,7 +33,7 @@ import pyinotify
 import MKVToMP4Converter as converter
 import sys
 from optparse import OptionParser
-
+import sendmail
 
 usage = 'usage: python %prog [options] [Path of directory to watch] \n If no directory to watch is provided, the current directory will be watched.'
 parser = OptionParser(usage=usage)
@@ -51,6 +51,11 @@ elif len(args)>1:
     sys.exit(2)
 
 
+if options.email:
+    mail = sendmail.SendMail()
+    print 'e-mail option set'
+
+
 wm = pyinotify.WatchManager()
 flags = pyinotify.IN_CLOSE_WRITE | pyinotify.IN_MOVED_TO
 
@@ -62,7 +67,12 @@ class EventHandler(pyinotify.ProcessEvent):
             print 'Starting conversion of %s' % event.pathname
             converter.convert(event.pathname)
             print 'Done.\n' 
-    
+
+            if options.email: 
+                mail.send(event.pathname)
+        else:
+            if options.email:
+                mail.send(event.pathname)
 
     def process_IN_MOVED_TO(self, event):
         print "Moved: "+event.pathname
@@ -71,6 +81,12 @@ class EventHandler(pyinotify.ProcessEvent):
             converter.convert(event.pathname)
             print 'Done.\n' 
 
+            if options.email:
+                mail.send(event.pathname)
+
+        else:
+            if options.email:
+                mail.send(event.pathname)
         
 handler = EventHandler()
 notifier = pyinotify.Notifier(wm, handler)
