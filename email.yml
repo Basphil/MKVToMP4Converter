@@ -1,0 +1,21 @@
+#Connection uses tls. true or false
+tls:
+
+#Address of the mail server. Example: smtp.gmail.com
+domain:
+
+#Port to connect to on the mail server. Example: 587
+port: 
+
+#E-mail address to send mail as. Example: bob@example.com
+sender:
+
+#Username and password to log into the mail server.
+user_name:
+password: 
+
+#E-mail addresses to receive mail. Each address has to be on a separate line.
+#Remove the addresses provided as an example.
+recipients:
+- vera@example.com
+- john@example.com
