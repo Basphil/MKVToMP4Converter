@@ -34,7 +34,7 @@ import MKVToMP4Converter as converter
 import sys
 from optparse import OptionParser
 import sendmail
-
+import time
 usage = 'usage: python %prog [options] [Path of directory to watch] \n If no directory to watch is provided, the current directory will be watched.'
 parser = OptionParser(usage=usage)
 
@@ -62,11 +62,10 @@ flags = pyinotify.IN_CLOSE_WRITE | pyinotify.IN_MOVED_TO
 class EventHandler(pyinotify.ProcessEvent):
     
     def process_IN_CLOSE_WRITE(self, event):
-        print "Finished writing:"+event.pathname
+        print "\n%s Finished writing: %s"%(time.strftime('%a %d-%m-%Y %H:%M:%S'),event.pathname)
         if event.pathname[-3:]=='mkv':
-            print 'Starting conversion of %s' % event.pathname
+            print '\n-------------------------------\nStarting conversion of %s' % event.pathname
             converter.convert(event.pathname)
-            print 'Done.\n' 
 
             if options.email: 
                 mail.send(event.pathname)
@@ -75,11 +74,10 @@ class EventHandler(pyinotify.ProcessEvent):
                 mail.send(event.pathname)
 
     def process_IN_MOVED_TO(self, event):
-        print "Moved: "+event.pathname
+        print "\n%s Moved: %s"%(time.strftime('%a %d-%m-%Y %H:%M:%S'),event.pathname)
         if event.pathname[-3:]=='mkv':
-            print 'Starting conversion of %s' % event.pathname
+            print '\n-------------------------------\nStarting conversion of %s' % event.pathname
             converter.convert(event.pathname)
-            print 'Done.\n' 
 
             if options.email:
                 mail.send(event.pathname)

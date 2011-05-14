@@ -34,23 +34,26 @@ import subprocess,shlex, string, sys
 def convert(path):    
     information = info(path)
 
-    t_audio = find_audio_track(information)
+    try:
+        t_audio = find_audio_track(information)
     
-    t_video = (t_audio == 1) and 2 or 1
+        t_video = (t_audio == 1) and 2 or 1
 
-    a_codec = audio_codec(information)
+        a_codec = audio_codec(information)
 
-    fps = get_fps(information, t_video)
+        fps = get_fps(information, t_video)
 
-    ext_tracks(path, t_audio, t_video, a_codec)
+        ext_tracks(path, t_audio, t_video, a_codec)
 
-    convert_audio(a_codec)
+        convert_audio(a_codec)
 
-    box(path, fps)
+        box(path, fps)
 
+        print 'Done'
 
-
-
+    except ConversionError as e:
+        print   e.value 
+    print '-------------------------------\n'
 def info(name):
     '''Returns the ouput of mkvinfo as a string'''
     
@@ -72,8 +75,8 @@ def find_audio_track(info):
     pos_video = string.find(info, 'Track type: video')
 
     if pos_audio == -1 or pos_video == -1:
-    #TODO: Throw exception
-        sys.exit('Track not found')
+        raise ConversionError('Tracks could not be found. Possibly the wrong format (not a .mkv file) or a corrupt .mkv file.')
+  
 
     return (pos_audio < pos_video) and 1 or 2
 
@@ -94,7 +97,7 @@ def audio_codec(info):
     
 #TODO: Error output
     else:
-        print 'The audio codec could not be determined'
+        raise ConversionError('The audio codec could not be determined')
         
     
  
@@ -167,3 +170,10 @@ if __name__ == '__main__':
 
     except IndexError:
         print 'Usage: python MKVToMP4Converter.py [.mkv file to convert]'
+
+class ConversionError(Exception):
+    def __init__(self, value):
+        self.value = 'ERROR: %s'%(value)
+
+    def __str__(self):
+        return self.value
