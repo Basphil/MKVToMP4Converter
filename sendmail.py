@@ -12,13 +12,17 @@ class SendMail:
        
 
     def send(self, filename):        
-        msg = MIMEText('New file %s in watched directory.\n' % (filename) )
-        msg['Subject']='New file in watched directory'
-        s = smtplib.SMTP(self.config['domain'], self.config['port'])
+        try:
+            msg = MIMEText('New file %s in watched directory.\n' % (filename) )
+            msg['Subject']='New file in watched directory'
+            s = smtplib.SMTP(self.config['domain'], self.config['port'])
         
-        s.ehlo()
-        s.starttls()
-        s.ehlo()
-        s.login(self.config['user_name'], self.config['password'])
-        s.sendmail(self.config['sender'], self.config['recipients'], msg.as_string())
-        s.quit()
+            if self.config['tls']:        
+                s.starttls()
+ 
+            s.login(self.config['user_name'], self.config['password'])
+            s.sendmail(self.config['sender'], self.config['recipients'], msg.as_string())
+            s.quit()
+
+        except Exception:
+            print 'ERROR: an error occured when trying to send an e-mail'
