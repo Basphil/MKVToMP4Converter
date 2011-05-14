@@ -14,6 +14,7 @@ wrappers around these tools.
 
 * Linux ≥ 2.6.13
 * Python ≥ 2.4
+* python-yaml
 * [pyinotify](https://github.com/seb-m/pyinotify)
 * [mkvtoolnix](http://www.bunkus.org/videotools/mkvtoolnix/)
 * [FFmpeg](http://www.ffmpeg.org/)
